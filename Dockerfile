@@ -19,7 +19,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Set the command to run the Flask app
-CMD ["python", "ci-app/app.py"]
+CMD ["python", "app.py"]
 
 
 
