@@ -1,6 +1,6 @@
 
 
-# name: Build and deploy Python app to Azure Web App - cicd-deployvhv
+# name: Build and deploy Python app to Azure Web App - cicd-deployvhvadda
 
 
 # on:
@@ -95,6 +95,7 @@ jobs:
 
           # Restart the app to apply changes
           az webapp restart --name $APP_SERVICE_NAME --resource-group $RESOURCE_GROUP
+
 
 
 
