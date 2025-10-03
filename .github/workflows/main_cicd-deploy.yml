@@ -14,13 +14,7 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: List images in ACR
-        run: |
-          echo "Listing images in ACR: $AZURE_LOGIN_SERVER"
-          az acr repository list --name $ACR_NAME --output table
-
-           # echo "Listing tags for 'myapp' repository:"
-           #  az acr repository show-tags --name $ACR_NAME --repository myapp --output table
+      
 
 
       - name: Deploy to Azure Web App (Linux container)
@@ -42,6 +36,7 @@ jobs:
 
           # Restart the app to apply changes
           az webapp restart --name $APP_SERVICE_NAME --resource-group $RESOURCE_GROUP
+
 
 
 
