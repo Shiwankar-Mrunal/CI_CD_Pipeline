@@ -2,7 +2,7 @@
 # # More GitHub Actions for Azure: https://github.com/Azure/actions
 # # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-# name: Build and deploy Python app to Azure Web App - cicd-deploy
+# name: Build and deploy Python app to Azure Web App - cicd-deployvhv
 
 # on:
 #   push:
@@ -96,6 +96,7 @@ jobs:
 
           # Restart the app to apply changes
           az webapp restart --name $APP_SERVICE_NAME --resource-group $RESOURCE_GROUP
+
 
 
 
