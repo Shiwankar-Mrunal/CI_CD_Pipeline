@@ -66,10 +66,16 @@ jobs:
         username: ${{ secrets.AZURE_USERNAME }}
         password: ${{ secrets.AZURE_PASSWORD1 }}
 
-    - name: Tag and Push Docker Image to ACR
+    - name: Build and Push Docker Image
+      env:
+        ACR_LOGIN_SERVER: ${{ secrets.AZURE_LOGIN_SERVER }}
       run: |
-        IMAGE_NAME=${{ secrets.ACR_LOGIN_SERVER }}/myapp:latest
+        echo "Building Docker image"
+        docker build -t myapp:latest .
+
+        IMAGE_NAME="$ACR_LOGIN_SERVER/myapp:latest"
         echo "Tagging image as $IMAGE_NAME"
         docker tag myapp:latest $IMAGE_NAME
-        echo "Pushing image $IMAGE_NAME"
+
+        echo "Pushing image to ACR: $IMAGE_NAME"
         docker push $IMAGE_NAME
