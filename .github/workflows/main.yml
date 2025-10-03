@@ -1,11 +1,11 @@
-name : CI Pipeline
+name: CI Pipeline
 
-on: 
+on:
   push:
     branches: [main]
 
 jobs:
-  build: 
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,17 +20,13 @@ jobs:
     - name: Install dependencies
       run: |  
         python -m pip install --upgrade pip
-        pip install -r requirement.txt 
+        pip install -r requirements.txt  # <-- fixed typo here
 
-    
     - name: Lint with flake8
       run: |
         pip install flake8
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-    # - name: Run unit tests
-    #   run: |
-    #     pip install pytest
-    #    # pytest tests/
+
     - name: Run unit tests
       run: |
         pip install pytest
@@ -40,49 +36,40 @@ jobs:
       run: |
         pip install bandit
         bandit -r . --exit-zero    
-    - name: Build project       
-      run: |
-        echo "Build steps go here"
 
-   
+    - name: Build Docker image
+      run: |
+        docker build -t myapp:latest .
+
     - name: Notify build status
       run: |              
         echo "Build completed successfully"
 
 
-
-
-
-
-
-                                                                                                                 #name: Build and Push to ACR#on:#  push:# branches: [main]#jobs:
   build-and-push:
     needs: build
-    
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # Step 1: Log in to Azure with Service Principal
-      - name: Log in to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Log in to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Step 2: Log in to ACR
-      - name: Azure Container Registry Login
-        uses: azure/docker-login@v1
-        with:
-          login-server: ${{ secrets.ACR_LOGIN_SERVER }}
-          username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
+    - name: Azure Container Registry Login
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
 
-      # Step 3: Build & Push Docker Image
-      - name: Build and Push Docker Image
-        run: |
-          IMAGE_NAME=${{ secrets.ACR_LOGIN_SERVER }}/myapp:latest
-          echo "Building and pushing image: $IMAGE_NAME"
-          docker build -t $IMAGE_NAME .
-          docker push $IMAGE_NAME
+    - name: Tag and Push Docker Image to ACR
+      run: |
+        IMAGE_NAME=${{ secrets.ACR_LOGIN_SERVER }}/myapp:latest
+        echo "Tagging image as $IMAGE_NAME"
+        docker tag myapp:latest $IMAGE_NAME
+        echo "Pushing image $IMAGE_NAME"
+        docker push $IMAGE_NAME
