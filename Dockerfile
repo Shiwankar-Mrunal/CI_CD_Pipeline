@@ -6,7 +6,7 @@ FROM python:3.11
 WORKDIR /ci-app
 
 # Copy the requirements.txt file into the container
-COPY requirements.txt .
+COPY requirement.txt .
 
 # Install the dependencies listed in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
