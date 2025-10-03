@@ -8,8 +8,8 @@ WORKDIR /ci-app
 # Copy the requirements.txt file into the container
 COPY requirement.txt .
 
-# Install the dependencies listed in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Install the dependencies listed in requirement.txt
+RUN pip install --no-cache-dir -r requirement.txt
 
 # Copy the rest of the application files into the container
 COPY ci-app/ .
