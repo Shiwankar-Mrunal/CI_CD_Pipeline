@@ -64,7 +64,7 @@ jobs:
       with:
         login-server: ${{ secrets.ACR_LOGIN_SERVER }}
         username: ${{ secrets.AZURE_USERNAME }}
-        password: ${{ secrets.AZURE_PASSWORD }}
+        password: ${{ secrets.AZURE_PASSWORD1 }}
 
     - name: Tag and Push Docker Image to ACR
       run: |
