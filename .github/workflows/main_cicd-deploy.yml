@@ -81,8 +81,8 @@ jobs:
       - name: Deploy to Azure Web App (Linux container)
         env:
           ACR_LOGIN_SERVER: ${{ secrets.AZURE_LOGIN_SERVER }}
-          APP_SERVICE_NAME: your-app-service-name
-          RESOURCE_GROUP: your-resource-group-name
+          APP_SERVICE_NAME: cicd-deploy
+          RESOURCE_GROUP: M-ci-cd-rg
         run: |
           IMAGE_NAME="$ACR_LOGIN_SERVER/myapp:latest"
           echo "Deploying image $IMAGE_NAME to Azure Web App $APP_SERVICE_NAME"
@@ -96,5 +96,6 @@ jobs:
 
           # Restart the app to apply changes
           az webapp restart --name $APP_SERVICE_NAME --resource-group $RESOURCE_GROUP
+
 
 
