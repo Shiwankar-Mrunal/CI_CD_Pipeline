@@ -1,5 +1,6 @@
 import pytest
-from ci-app.app import app
+import app
+from ci-app.app 
 
 def test_hello():
     tester = app.test_client()
