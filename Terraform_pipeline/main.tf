@@ -24,7 +24,7 @@ module "application" {
   name1 = var.azurerm_resource_group.MY-RG.name
   location1 = var.azurerm_resource_group.MY-RG.location
   app_service_plan_name     = "var.app_service_plan_name"
-  webapp_name               = unique_web_app
+  webapp_name               = "var.webapp_name"
 
 }
 
