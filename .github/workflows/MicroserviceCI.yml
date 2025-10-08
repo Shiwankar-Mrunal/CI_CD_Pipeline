@@ -1,5 +1,4 @@
-name: CI Pipeline
-
+name: CI Pipeline - Integration for Microservice Code
 
 on:
   push:
@@ -46,7 +45,7 @@ jobs:
       run: |              
         echo "Build completed successfully"
 
-
+  #Push Docker Image to the Azure Container Registry
   build-and-push:
     needs: build
     runs-on: ubuntu-latest

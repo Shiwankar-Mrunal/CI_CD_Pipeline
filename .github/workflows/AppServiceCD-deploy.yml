@@ -15,8 +15,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       
-
-
       - name: Deploy to Azure Web App (Linux container)
       
         env:
@@ -36,15 +34,4 @@ jobs:
 
           # Restart the app to apply changes
           az webapp restart --name $APP_SERVICE_NAME --resource-group $RESOURCE_GROUP
-
-
-
-
-
-
-
-
-
-
-
 
