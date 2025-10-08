@@ -26,6 +26,7 @@ jobs:
 
       - name: Initialize Terraform
         run: terraform init
+        working-directory: ./Terraform_pipeline
 
       - name: Terraform format  # Fixed spelling and indentation
         run: terraform fmt -check
@@ -35,7 +36,7 @@ jobs:
         
       - name: Plan Infrastructure Changes
         run: terraform plan -out=tfplan.out  # Fixed output file name
-        working-directory: ./Terraform_pipeline 
+        
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4  # Fixed action name
