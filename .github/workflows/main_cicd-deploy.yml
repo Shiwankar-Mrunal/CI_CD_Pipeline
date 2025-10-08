@@ -1,0 +1,50 @@
+name: CD Pipeline - Deploy to Azure App Service
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # needs: build-and-push  # Make sure to depend on CI pipeline job
+
+    steps:
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+
+
+      - name: Deploy to Azure Web App (Linux container)
+      
+        env:
+          ACR_LOGIN_SERVER: ${{ secrets.AZURE_LOGIN_SERVER }}
+          APP_SERVICE_NAME: cicd-deploy
+          RESOURCE_GROUP: M-ci-cd-rg
+        run: |
+          IMAGE_NAME="$ACR_LOGIN_SERVER/myapp:latest"
+          echo "Deploying image $IMAGE_NAME to Azure Web App $APP_SERVICE_NAME"
+
+          # Configure the web app to use the new image from ACR
+          az webapp config container set \
+            --name $APP_SERVICE_NAME \
+            --resource-group $RESOURCE_GROUP \
+            --docker-custom-image-name $IMAGE_NAME \
+            --docker-registry-server-url https://$AZURE_LOGIN_SERVER
+
+          # Restart the app to apply changes
+          az webapp restart --name $APP_SERVICE_NAME --resource-group $RESOURCE_GROUP
+
+
+
+
+
+
+
+
+
+
+
+
