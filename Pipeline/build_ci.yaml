@@ -29,10 +29,12 @@ jobs:
       run: |
         pip install flake8
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
     - name: Run unit tests
       run: |
         pip install pytest
         pytest tests/
+        
     - name: Security scan with Bandit
       run: |
         pip install bandit
@@ -52,7 +54,7 @@ jobs:
 
 
 
-                                                                                                                 #name: Build and Push to ACR#on:#  push:# branches: [main]#jobs:
+                                                                                                                                                 #name: Build and Push to ACR#on:#  push:# branches: [main]#jobs:
   build-and-push:
     needs: build
     
