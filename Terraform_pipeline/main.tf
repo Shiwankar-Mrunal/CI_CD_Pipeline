@@ -19,14 +19,6 @@ resource "azurerm_container_registry" "my-acr"{
     }
 }
 
-module "application" {
-  source = "../modules"
-  name1 = var.azurerm_resource_group.MY-RG.name
-  location1 = var.azurerm_resource_group.MY-RG.location
-  app_service_plan_name     = var.app_service_plan_name
-  webapp_name               = var.webapp_name
-
-}
 
 
 
