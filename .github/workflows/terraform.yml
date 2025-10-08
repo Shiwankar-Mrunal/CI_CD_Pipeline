@@ -6,39 +6,40 @@ on:
       - main
 
 jobs:
-   terraform:
-   runs-on: ubuntu-latest
+  terraform:  # Fixed indentation
+    runs-on: ubuntu-latest
 
-permissions:
-id-token: write
-contents: read
+    permissions:
+      id-token: write
+      contents: read
 
-steps:
-     - name: Checkout Code
-       uses: actions/checkout@v4
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-     - name: Setup Terraform
-       uses: hashicorp/setup-terraform@v1
-       with:
-            terraform_version: 1.5.0
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.5.0
 
-     - name: Initialize Terraform
-       run: terraform init
-     - name: Terraform formate 
-       run: terrafom fmt -check 
+      - name: Initialize Terraform
+        run: terraform init
 
-     - name: Validate Terraform
-       run: terraform validate
+      - name: Terraform format  # Fixed spelling and indentation
+        run: terraform fmt -check
 
-     - name: Plan Infrastructure Changes
-       run: terraform plan -out=tfplan
+      - name: Validate Terraform
+        run: terraform validate
 
-     - name: Upload Artifacts 
-       uses: actions/uploadartifacts@v4
-       with:
-           name: terrafom-plan 
-           path: tfplan.out 
+      - name: Plan Infrastructure Changes
+        run: terraform plan -out=tfplan.out  # Fixed output file name
 
-     - name: Apply Changes (Main Branch Only)
-       if: github.ref == 'refs/heads/main'
-       run: terraform apply -auto-approve=tfplan.out 
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4  # Fixed action name
+        with:
+          name: terraform-plan  # Fixed spelling
+          path: tfplan.out
+
+      - name: Apply Changes (Main Branch Only)
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve tfplan.out  # Fixed command syntax
