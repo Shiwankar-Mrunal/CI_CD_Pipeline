@@ -26,7 +26,6 @@ jobs:
 
       - name: Initialize Terraform
         run: terraform init
-        working-directory: ./Terraform_pipeline
 
       - name: Terraform format  # Fixed spelling and indentation
         run: terraform fmt -check
