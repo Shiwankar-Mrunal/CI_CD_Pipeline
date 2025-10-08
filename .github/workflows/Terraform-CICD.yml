@@ -26,12 +26,15 @@ jobs:
 
       - name: Initialize Terraform
         run: terraform init
+        working-directory: ./Terraform_pipeline
 
       - name: Terraform format  # Fixed spelling and indentation
         run: terraform fmt -check
+        working-directory: ./Terraform_pipeline
 
       - name: Validate Terraform
         run: terraform validate
+        working-directory: ./Terraform_pipeline
         
       - name: Plan Infrastructure Changes
         run: terraform plan   # Fixed output file name
@@ -45,4 +48,5 @@ jobs:
 
       - name: Apply Changes (Main Branch Only)
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve= ./Terraform_pipeline/tfplan.out  # Fixed command syntax
+        run: terraform apply -auto-approve ./Terraform_pipeline/tfplan.out  # Fixed command syntax
+        working-directory: ./Terraform_pipeline
