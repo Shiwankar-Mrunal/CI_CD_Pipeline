@@ -17,6 +17,14 @@ resource "azure_app_service" "my_web_app1"{
    location = var.azurerm.resource_group_location.location
    app_service_plan_id = azurerm_app_service_plan.app1.id
 
-   
+site_config {
+  linux_fx_version = "DOCKER|myacrregistry123.azurecr.io/web-app:latest"
+}
+
+  app_settings = {
+    "DOCKER_REGISTRY_SERVER_URL"      = "https://${azurerm_container_registry.acr.login_server}"
+    "DOCKER_REGISTRY_SERVER_USERNAME" = azurerm_container_registry.acr.admin_username
+    "DOCKER_REGISTRY_SERVER_PASSWORD" = azurerm_container_registry.acr.admin_password
+  }
 }
 
