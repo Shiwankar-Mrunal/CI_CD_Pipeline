@@ -35,14 +35,14 @@ jobs:
         
       - name: Plan Infrastructure Changes
         run: terraform plan -out=tfplan.out  # Fixed output file name
-        working-directory: ./Terraform_pipeline/Terraform_Infrastructure
+        working-directory: ./Terraform_pipeline 
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4  # Fixed action name
         with:
           name: terraform-plan  # Fixed spelling
-          path: ./Terraform_pipeline/Terraform_Infrastructure/tfplan.out
+          path: ./Terraform_pipeline/tfplan.out
 
       - name: Apply Changes (Main Branch Only)
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve= ./Terraform_pipeline/Terraform_Infrastructure/tfplan.out  # Fixed command syntax
+        run: terraform apply -auto-approve= ./Terraform_pipeline/tfplan.out  # Fixed command syntax
