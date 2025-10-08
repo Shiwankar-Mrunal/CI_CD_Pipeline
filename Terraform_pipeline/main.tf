@@ -23,8 +23,8 @@ module "application" {
   source = "./Terraform_pipeline/modules"
   name1 = var.azurerm_resource_group.MY-RG.name
   location1 = var.azurerm_resource_group.MY-RG.location
-  app_service_plan_name     = "var.app_service_plan_name"
-  webapp_name               = "var.webapp_name"
+  app_service_plan_name     = var.app_service_plan_name
+  webapp_name               = var.webapp_name
 
 }
 
