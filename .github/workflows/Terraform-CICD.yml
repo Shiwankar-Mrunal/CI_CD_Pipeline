@@ -44,4 +44,4 @@ jobs:
 
       - name: Apply Changes (Main Branch Only)
         if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve=/Terraform_pipeline/Terraform_Infrastructure/tfplan.out  # Fixed command syntax
+        run: terraform apply -auto-approve= ./Terraform_pipeline/Terraform_Infrastructure/tfplan.out  # Fixed command syntax
