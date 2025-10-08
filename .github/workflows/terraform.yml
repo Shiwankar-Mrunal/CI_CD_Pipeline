@@ -1,43 +1,44 @@
-name : Terraform Deployment
+name: Terraform CI/CD
 
-on : 
-   push:
-     branch: 
-         - main 
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  terraform:
-    runs-on: ubuntu-latest
+   terraform:
+   runs-on: ubuntu-latest
 
-    defaults:
-      run:
-         shell: bash 
-    steps:
-     - name: Checkout code 
-     - uses: actions/checkout@4 
+permissions:
+id-token: write
+contents: read
+
+steps:
+     - name: Checkout Code
+       uses: actions/checkout@v4
 
      - name: Setup Terraform
-     - uses: hashicorp/setup-terraform@v3
+       uses: hashicorp/setup-terraform@v1
+       with:
+            terraform_version: 1.5.0
 
-     - name: Terraform init 
-     - run: terraform init 
-  
+     - name: Initialize Terraform
+       run: terraform init
      - name: Terraform formate 
-     - run: terraform fmt -check 
+       run: terrafom fmt -check 
 
-     - name: Terraform validate 
-     - run: terraform validate 
+     - name: Validate Terraform
+       run: terraform validate
 
-     - name: Terraform plan 
-     - run: terraform plan -out=tfplan.out 
+     - name: Plan Infrastructure Changes
+       run: terraform plan -out=tfplan
 
-     - name: Upload Artifacts
-     - uses: actions/upload-artifact@v4 
-       with: 
-         name: terraform-plan 
-         path: tfplan.out 
+     - name: Upload Artifacts 
+       uses: actions/uploadartifacts@v4
+       with:
+           name: terrafom-plan 
+           path: tfplan.out 
 
-     - name: Azure login 
-     - uses: azure/login@v1
-
-     - name: terraform apply
-     - run: terraform apply --auto-approve
+     - name: Apply Changes (Main Branch Only)
+       if: github.ref == 'refs/heads/main'
+       run: terraform apply -auto-approve=tfplan.out 
