@@ -35,6 +35,7 @@ jobs:
         
       - name: Plan Infrastructure Changes
         run: terraform plan -out=tfplan.out  # Fixed output file name
+        working-directory: ./Terraform_pipeline/Terraform_Infrastructure
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4  # Fixed action name
