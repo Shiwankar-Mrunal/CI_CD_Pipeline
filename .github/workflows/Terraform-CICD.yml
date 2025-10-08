@@ -1,4 +1,4 @@
-name: Terraform CI/CD
+name: Terraform CI/CD to deploy Infrastructure on Azure
 
 on:
   push:
@@ -21,6 +21,8 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.5.0
+
+      #Todo: Add Logic to Azure Step
 
       - name: Initialize Terraform
         run: terraform init

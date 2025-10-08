@@ -6,4 +6,4 @@ def test_hello():
     response = tester.get("/")
     assert response.status_code == 200
     assert b"Hello from Azure Web App!" in response.data
-
+    
