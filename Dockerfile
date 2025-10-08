@@ -3,13 +3,13 @@
 FROM python:3.11
 
 # Set the working directory inside the container
-WORKDIR /ci-app
+WORKDIR /app
 
 # Copy the requirements.txt file into the container
-COPY requirements.txt .
+COPY requirement.txt .
 
-# Install the dependencies listed in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Install the dependencies listed in requirement.txt
+RUN pip install --no-cache-dir -r requirement.txt
 
 # Copy the rest of the application files into the container
 COPY ci-app/ .
@@ -19,4 +19,3 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Set the command to run the Flask app
-CMD ["python", "ci-app/app.py"]
