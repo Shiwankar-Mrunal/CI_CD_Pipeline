@@ -4,37 +4,36 @@ on :
    push:
      branch: 
          - main 
-jobs: 
-    terraform:
-       runs-on: ubuntu-latest
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout code 
+     - uses: actions/checkout@4 
 
-steps:
-   - name: Checkout code 
-   - uses: actions/checkout@4 
+     - name: Setup Terraform
+     - uses: hashicorp/setup-terraform@v3
 
-   - name: Setup Terraform
-   - uses: hashicorp/setup-terraform@v3
-
-   - name: Terraform init 
-   - run: terraform init 
+     - name: Terraform init 
+     - run: terraform init 
   
-   - name: Terraform formate 
-   - run: terraform fmt -check 
+     - name: Terraform formate 
+     - run: terraform fmt -check 
 
-   - name: Terraform validate 
-   - run: terraform validate 
+     - name: Terraform validate 
+     - run: terraform validate 
 
-   - name: Terraform plan 
-   - run: terraform plan -out=tfplan.out 
+     - name: Terraform plan 
+     - run: terraform plan -out=tfplan.out 
 
-   - name: Upload Artifacts
-   - uses: actions/upload-artifact@v4 
-     with: 
+     - name: Upload Artifacts
+     - uses: actions/upload-artifact@v4 
+       with: 
          name: terraform-plan 
          path: tfplan.out 
 
-   - name: Azure login 
-   - uses: azure/login@v1
+     - name: Azure login 
+     - uses: azure/login@v1
 
-   - name: terraform apply
-   - run: terraform apply --auto-approve
+     - name: terraform apply
+     - run: terraform apply --auto-approve
