@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "MY-RG" {
   name     = "TerraRG"
-  location = "eastus"
+  location = "westeurope"
 }
 
 resource "azurerm_container_registry" "my-acr" {
