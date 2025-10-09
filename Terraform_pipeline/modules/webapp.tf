@@ -17,6 +17,7 @@ resource "azurerm_app_service" "my_web_app1" {
   location            = var.location
   resource_group_name = var.myrg
   app_service_plan_id = azurerm_app_service_plan.app1.id
+  
 
   # site_config {
   #   linux_fx_version = "DOCKER|${var.acr_login_server}/${var.webapp_name}:latest"
