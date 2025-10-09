@@ -18,7 +18,7 @@ resource "azurerm_container_registry" "my-acr"{
 }
 
 module "application" {
-  source = "/root/Assignment 5/Terraform-Microservices-Pipeline/Terraform_pipeline/modules"
+  source = "./modules"
   myrg = azurerm_resource_group.MY-RG.name
   location = azurerm_resource_group.MY-RG.location
   app_service_plan_name     = var.myarc
