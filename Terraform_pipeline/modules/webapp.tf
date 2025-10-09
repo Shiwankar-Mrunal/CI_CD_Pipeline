@@ -1,96 +1,18 @@
-resource "azurerm_app_service_plan" "app1" {
+resource "azurerm_service_plan" "app1" {
   name                = "Terraappserviceplan"
   location            = var.location
   resource_group_name = var.myrg
-
-  kind     = "Linux"
-  reserved = true  # ✅ Must be true for Linux
-
-  sku {
-    tier = "Basic"
-    size = "B1"
-  }
+  kind                = "Windows"
+  os_type   = "Windows"
+  sku_name  = "B1"
 }
 
 resource "azurerm_app_service" "my_web_app1" {
   name                = var.webapp_name
   location            = var.location
   resource_group_name = var.myrg
-  app_service_plan_id = azurerm_app_service_plan.app1.id
+  app_service_plan_id = azurerm_service_plan.app1.id
 
-
-  # site_config {
-  #   linux_fx_version = "DOCKER|${var.acr_login_server}/${var.webapp_name}:latest"
-  # }
-
-  # app_settings = {
-  #   "DOCKER_REGISTRY_SERVER_URL"      = "https://${var.acr_login_server}"
-  #   "DOCKER_REGISTRY_SERVER_USERNAME" = var.acr_username
-  #   "DOCKER_REGISTRY_SERVER_PASSWORD" = var.acr_password
-  # }
+  # Windows App Services don’t use Linux docker container settings
+  # If you're deploying a .NET or classic app, you don’t need site_config unless needed
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# resource "azurerm_app_service_plan" "app1" {
-#   name                = "Terra-app-service-plan"
-#   location            = var.azurerm_resource_group.myloc
-#   resource_group_name = var.azurerm_resource_group.myrg
-#   kind                = "Windows"
-#   reserved            = true
-
-#   sku {
-#     tier = "Basic"
-#     size = "B1"
-#   }
-# }
-
-# resource "azure_app_service" "my_web_app1" {
-#   name                = var.webapp_name
-#   resource_group_name = var.azurerm_resource_group.name
-#   location            = var.azurerm_resource_group.myloc
-#   app_service_plan_id = var.azurerm_app_service_plan.app1.id
-
-#   # site_config {
-#   #   linux_fx_version = "DOCKER|myacrregistry123.azurecr.io/web-app:latest"
-#   # }
-
-#   # app_settings = {
-#   #   "DOCKER_REGISTRY_SERVER_URL"      = "https://${azurerm_container_registry.acr.login_server}"
-#   #   "DOCKER_REGISTRY_SERVER_USERNAME" = azurerm_container_registry.acr.admin_username
-#   #   "DOCKER_REGISTRY_SERVER_PASSWORD" = azurerm_container_registry.acr.admin_password
-#   # }
-# }
-
