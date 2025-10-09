@@ -2,7 +2,6 @@ resource "azurerm_service_plan" "app1" {
   name                = "Terraappserviceplan"
   location            = var.location
   resource_group_name = var.myrg
-  kind                = "Windows"
   os_type   = "Windows"
   sku_name  = "B1"
 }
