@@ -1,6 +1,6 @@
 
 resource "azurerm_app_service_plan" "app1"{
-      name  =  "Terra-app-service-plan"
+      name  =  "Terraappserviceplan"
       location = var.location
       resource_group_name = var.myrg
       kind = "Windows"
@@ -12,8 +12,8 @@ resource "azurerm_app_service_plan" "app1"{
       }
 }
   
-resource "azure_app_service" "my_web_app1"{
-   name = "Terra-web-app"
+resource "azurerm_app_service" "my_web_app1"{
+   name = "Terrawebapp"
    resource_group_name = var.myrg
    location = var.location
    app_service_plan_id = azurerm_app_service_plan.app1.id

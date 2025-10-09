@@ -1,10 +1,10 @@
 resource "azurerm_resource_group" "MY-RG"{
-  name= "Terra-RG"
+  name= "TerraRG"
   location = "eastus"
 }
 
 resource "azurerm_container_registry" "my-acr"{
-    name = "Terra-Arc"
+    name = "TerraArc"
     resource_group_name = azurerm_resource_group.MY-RG.name
     location = azurerm_resource_group.MY-RG.location
 
@@ -18,8 +18,8 @@ resource "azurerm_container_registry" "my-acr"{
 }
 
 module "application" {
-  source = "../modules"
-  name = azurerm_resource_group.MY-RG.name
+  source = "/root/Assignment 5/Terraform-Microservices-Pipeline/Terraform_pipeline/modules"
+  myrg = azurerm_resource_group.MY-RG.name
   location = azurerm_resource_group.MY-RG.location
   app_service_plan_name     = var.myarc
   webapp_name               = var.web_app_name
