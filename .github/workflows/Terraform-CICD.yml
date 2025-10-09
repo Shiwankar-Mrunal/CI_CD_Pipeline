@@ -14,6 +14,11 @@ jobs:
       ARM_CLIENT_SECRET:   ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
       ARM_TENANT_ID:       ${{ fromJson(secrets.AZURE_CREDENTIALS).tenantId }}
 
+      TF_VAR_subscription_id: ${{ fromJson(secrets.AZURE_CREDENTIALS).subscriptionId }}
+      TF_VAR_client_id:       ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
+      TF_VAR_client_secret:   ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
+      TF_VAR_tenant_id:       ${{ fromJson(secrets.AZURE_CREDENTIALS).tenantId }}
+
     permissions:
       id-token: write
       contents: read
