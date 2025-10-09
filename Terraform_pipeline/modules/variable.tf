@@ -19,3 +19,16 @@ variable "webapp_name" {
   description = "Name of the Web App (App Service)"
 }
 
+variable "acr_login_server" {
+  type = string
+}
+
+variable "acr_username" {
+  type = string
+}
+
+variable "acr_password" {
+  type = string
+  sensitive = true
+}
+
