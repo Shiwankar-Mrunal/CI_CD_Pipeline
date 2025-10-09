@@ -70,7 +70,7 @@ jobs:
     - name: Azure Container Registry Login
       uses: azure/docker-login@v1
       with:
-        login-server: ${{ secrets.AZURE_LOGIN_SERVER}}
+        login-server: ${{ secrets.AZURE_LOGIN_SERVER }}
         username: ${{ secrets.AZURE_USERNAME }}
         password: ${{ secrets.AZURE_PASSWORD1 }}
 
@@ -100,6 +100,5 @@ jobs:
         echo "Tagging image as $IMAGE_NAME"
         docker tag myapp:latest $IMAGE_NAME
 
- 
-         echo "Pushing image to ACR: $IMAGE_NAME"
-         docker push $IMAGE_NAME
+        echo "Pushing image to ACR: $IMAGE_NAME"
+        docker push $IMAGE_NAME
