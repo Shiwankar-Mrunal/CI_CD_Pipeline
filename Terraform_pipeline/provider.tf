@@ -11,9 +11,9 @@ terraform {
 provider "azurerm" {
   features {}
 
-  subscription_id = var.subscription_id
-  tenant_id       = var.tenant_id
-  client_id       = var.client_id
-  client_secret   = var.client_secret
+  subscription_id = AZURE_CREDENTIALS.subscription_id
+  tenant_id       = AZURE_CREDENTIALS.tenant_id
+  client_id       = AZURE_CREDENTIALS.client_id
+  client_secret   = AZURE_CREDENTIALS.client_secret
 
 }
