@@ -3,10 +3,18 @@ name: CI Pipeline - Integration for Microservice Code
 on:
   push:
     branches: [main]
- 
+
+env:
+  # Extract specific Terraform/Azure env vars from JSON credentials
+  ARM_SUBSCRIPTION_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).subscriptionId }}
+  ARM_CLIENT_ID:       ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
+  ARM_CLIENT_SECRET:   ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
+  ARM_TENANT_ID:       ${{ fromJson(secrets.AZURE_CREDENTIALS).tenantId }}
+  
 jobs:
   build:
     runs-on: ubuntu-latest
+    
 
     steps:
     - name: Checkout code
