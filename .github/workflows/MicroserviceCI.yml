@@ -57,48 +57,27 @@ jobs:
   build-and-push:
     needs: build
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Log in to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Azure Container Registry Login
-      uses: azure/docker-login@v1
-      with:
-        login-server: ${{ secrets.AZURE_LOGIN_SERVER }}
-        username: ${{ secrets.AZURE_USERNAME }}
-        password: ${{ secrets.AZURE_PASSWORD1 }}
+      - name: Azure Container Registry Login
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.AZURE_LOGIN_SERVER }}
+          username: ${{ secrets.AZURE_USERNAME }}
+          password: ${{ secrets.AZURE_PASSWORD1 }}
 
-    # - name: Build and Push Docker Image
-    #   env:
-    #     ACR_LOGIN_SERVER: ${{ secrets.AZURE_LOGIN_SERVER }}
-    #   run: |
-    #     echo "Building Docker image"
-    #     docker build -t myapp:latest .
-
-    #     IMAGE_NAME="$ACR_LOGIN_SERVER/myapp:latest"
-    #     echo "Tagging image as $IMAGE_NAME"
-    #     docker tag myapp:latest $IMAGE_NAME
-
-    #     echo "Pushing image to ACR: $IMAGE_NAME"
-    #     docker push $IMAGE_NAME
-    - name: Build and Push Docker Image
-      env:
-        ACR_LOGIN_SERVER: ${{ secrets.AZURE_LOGIN_SERVER }}
-      run: |
-        echo "ACR_LOGIN_SERVER is: $ACR_LOGIN_SERVER"
-    
-        echo "Building Docker image..."
-        docker build -t myapp:latest .
-    
-        IMAGE_NAME="$ACR_LOGIN_SERVER/myapp:latest"
-        echo "Tagging image as $IMAGE_NAME"
-        docker tag myapp:latest $IMAGE_NAME
-
-        echo "Pushing image to ACR: $IMAGE_NAME"
-        docker push $IMAGE_NAME
+      - name: Build and Push Docker Image
+        env:
+          ACR_LOGIN_SERVER: ${{ secrets.AZURE_LOGIN_SERVER }}
+        run: |
+          docker build -t myapp:latest .
+          IMAGE_NAME="$ACR_LOGIN_SERVER/myapp:latest"
+          docker tag myapp:latest $IMAGE_NAME
+          docker push $IMAGE_NAME
