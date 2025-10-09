@@ -1,10 +1,20 @@
-variable "myrg" {}
 
-variable "myloc" {}
+variable "myrg" {
+    type        = string
+    description = "Name of the resource group"
+}
 
-variable "app_service_plan_name" {}
+variable "myloc" {
+    type        = string
+    description = "Name of the resource location"
+}
 
-variable "webapp_name" {}
+variable "myarc" {
+    type        = string
+    description = "Name of my azure container registery"
+}
 
-
-
+variable "web_app_name" {
+    type        = string
+    description = "Name of the web-app"
+}
