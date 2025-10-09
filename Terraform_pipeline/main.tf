@@ -22,4 +22,8 @@ module "application" {
   location              = azurerm_resource_group.MY-RG.location
   app_service_plan_name = var.myarc
   webapp_name           = var.web_app_name
+
+  acr_login_server      = azurerm_container_registry.my-acr.login_server
+  acr_username          = azurerm_container_registry.my-acr.admin_username
+  acr_password          = azurerm_container_registry.my-acr.admin_password
 }
